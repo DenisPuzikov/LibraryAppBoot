@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/people/search}">
+  <label for="query">Введите номер телефона: </label>
+  <input type="text" id="query" name="query"/>
+  <br/>
+  <input type="submit" value="Искать!"/>
+</form>
+
+<div th:if="${people}">
+  <div th:if="${people.isEmpty()}">
+    <span>Людей с таким номером телефона не найден, либо телефон не указан</span>
+  </div>
+
+  <div th:each="person : ${people}">
+    <a th:href="@{/people/{id}(id=${person.getId()})}"
+       th:text="${person.getFullName() + ', ' + person.getDateOfBirth()}">user</a>
+  </div>
+</div>
+
+</body>
+</html>
